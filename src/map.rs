@@ -50,8 +50,6 @@ impl Map {
         }
     }
 
-    /// Makes a new map using the algorithm from http://rogueliketutorials.com/tutorials/tcod/part-3/
-    /// This gives a handful of random rooms and corridors joining them together.
     pub fn new_map_rooms_and_corridors() -> Map {
         let mut map = Map{
             tiles : vec![TileType::Wall; 80*50],
@@ -68,7 +66,7 @@ impl Map {
 
         let mut rng = RandomNumberGenerator::new();
 
-        for _i in 0..MAX_ROOMS {
+        for _ in 0..MAX_ROOMS {
             let w = rng.range(MIN_SIZE, MAX_SIZE);
             let h = rng.range(MIN_SIZE, MAX_SIZE);
             let x = rng.roll_dice(1, map.width - w - 1) - 1;
