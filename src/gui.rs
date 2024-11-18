@@ -88,6 +88,8 @@ fn draw_tooltips(ecs: &World, ctx : &mut Rltk) {
 #[derive(PartialEq, Copy, Clone)]
 pub enum ItemMenuResult { Cancel, NoResponse, Selected }
 
+pub enum HelpMenuResult { Cancel, NoResponse }
+
 pub fn show_inventory(gs : &mut State, ctx : &mut Rltk) -> (ItemMenuResult, Option<Entity>) {
     let player_entity = gs.ecs.fetch::<Entity>();
     let names = gs.ecs.read_storage::<Name>();
@@ -131,6 +133,56 @@ pub fn show_inventory(gs : &mut State, ctx : &mut Rltk) -> (ItemMenuResult, Opti
         }
     }
 }
+
+pub fn show_help_menu(_gs : &mut State, ctx : &mut Rltk) -> HelpMenuResult {
+    // Define the content of the help menu
+    let help_text = vec![
+        "Keybindings:",
+        "Arrow Keys / NumPad - Move",
+        "G - Pick up items",
+        "I - Open inventory",
+        "D - Drop item",
+        "R - Remove item",
+        "Escape - Save and exit",
+        "",
+        "Press ESCAPE to close this menu.",
+    ];
+
+    // Calculate the size and position of the help menu box
+    let width = 40;
+    let height = help_text.len() as i32 + 2;
+    let x = (80 - width) / 2;  // Center horizontally for an 80-column screen
+    let y = (50 - height) / 2; // Center vertically for a 50-row screen
+
+    // Draw the menu box
+    ctx.draw_box(
+        x,
+        y,
+        width,
+        height,
+        RGB::named(rltk::WHITE),
+        RGB::named(rltk::BLACK),
+    );
+    ctx.print_color(
+        x + 2,
+        y,
+        RGB::named(rltk::YELLOW),
+        RGB::named(rltk::BLACK),
+        "Help Menu",
+    );
+
+    // Display each line of help text
+    for (i, line) in help_text.iter().enumerate() {
+        ctx.print(x + 2, y + i as i32 + 1, line);
+    }
+
+    // Handle key press to exit
+    match ctx.key {
+        Some(VirtualKeyCode::Escape) => HelpMenuResult::Cancel,
+        _ => HelpMenuResult::NoResponse,
+    }
+}
+
 
 pub fn drop_item_menu(gs : &mut State, ctx : &mut Rltk) -> (ItemMenuResult, Option<Entity>) {
     let player_entity = gs.ecs.fetch::<Entity>();
@@ -339,8 +391,6 @@ pub enum GameOverResult { NoSelection, QuitToMenu }
 
 pub fn game_over(ctx : &mut Rltk) -> GameOverResult {
     ctx.print_color_centered(15, RGB::named(rltk::YELLOW), RGB::named(rltk::BLACK), "Your journey has ended!");
-    ctx.print_color_centered(17, RGB::named(rltk::WHITE), RGB::named(rltk::BLACK), "One day, we'll tell you all about how you did.");
-    ctx.print_color_centered(18, RGB::named(rltk::WHITE), RGB::named(rltk::BLACK), "That day, sadly, is not in this chapter..");
 
     ctx.print_color_centered(20, RGB::named(rltk::MAGENTA), RGB::named(rltk::BLACK), "Press any key to return to the menu.");
 

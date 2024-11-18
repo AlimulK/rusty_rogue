@@ -2,3 +2,4 @@
 /resources
 Cargo.lock
 .vscode
+savegame.json

@@ -1,5 +1,5 @@
 use rltk::{ RGB, Rltk, RandomNumberGenerator, BaseMap, Algorithm2D, Point };
-use super::{Rect};
+use super::Rect;
 use std::cmp::{max, min};
 use specs::prelude::*;
 use serde::{Serialize, Deserialize};
@@ -79,8 +79,7 @@ impl Map {
         }
     }
 
-    /// Makes a new map using the algorithm from http://rogueliketutorials.com/tutorials/tcod/part-3/
-    /// This gives a handful of random rooms and corridors joining them together.
+    // Makes a new map using the algorithm from http://rogueliketutorials.com/tutorials/tcod/part-3/
     pub fn new_map_rooms_and_corridors(new_depth : i32) -> Map {
         let mut map = Map{
             tiles : vec![TileType::Wall; MAPCOUNT],
