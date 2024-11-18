@@ -23,7 +23,7 @@ impl<'a> System<'a> for MonsterAI {
 
         if *runstate != RunState::MonsterTurn { return; }
 
-        for (entity, mut viewshed,_monster,mut pos) in (&entities, &mut viewshed, &monster, &mut position).join() {
+        for (entity, viewshed,_monster, pos) in (&entities, &mut viewshed, &monster, &mut position).join() {
             let mut can_act = true;
 
             let is_confused = confused.get_mut(entity);

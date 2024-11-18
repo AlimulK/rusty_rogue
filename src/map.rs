@@ -209,7 +209,7 @@ fn wall_glyph(map : &Map, x: i32, y:i32) -> rltk::FontCharType {
         13 => { 202 } // Wall to the east, west, and south
         14 => { 203 } // Wall to the east, west, and north
         15 => { 206 }  // ╬ Wall on all sides
-        _ => { 35 } // We missed one?
+        _ => { 35 } // Missed one?
     }
 }
 

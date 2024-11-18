@@ -370,7 +370,7 @@ impl State {
 fn main() -> rltk::BError {
     use rltk::RltkBuilder;
     let mut context = RltkBuilder::simple80x50()
-        .with_title("Roguelike Tutorial")
+        .with_title("Rusty Rogue")
         .build()?;
     context.with_post_scanlines(true);
     let mut gs = State {
