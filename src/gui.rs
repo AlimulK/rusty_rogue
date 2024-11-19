@@ -143,6 +143,7 @@ pub fn show_help_menu(_gs : &mut State, ctx : &mut Rltk) -> HelpMenuResult {
         "I - Open inventory",
         "D - Drop item",
         "R - Remove item",
+        "> - Delve deeper",
         "Escape - Save and exit",
         "",
         "Press ESCAPE to close this menu.",
