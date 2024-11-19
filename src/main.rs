@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"]
+
 extern crate serde;
 use rltk::{GameState, Rltk, Point};
 use specs::prelude::*;
